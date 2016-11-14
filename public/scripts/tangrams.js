@@ -20,6 +20,9 @@ $(function() {
       });
     }
   });
+  socket.on("success", function() {
+    $("#staging-area").css("background-color", "#98fb98");
+  });
   
 
   // hide different areas based on player type in query string
@@ -46,13 +49,25 @@ $(function() {
       $(data).find("a:contains(.jpg)").each(function(idx) {
         var image = $(this).attr("href");
         $("#all-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
-        if ($.inArray(idx, randomList) != -1) {
-          $("#puzzle-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
+        if (playerType == "h") {
+          if ($.inArray(idx, randomList) != -1) {
+            $("#puzzle-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
+            socket.emit("image-select", {"imageName": image});
+          }
         }
       });
       $(".connectedSortable").sortable({connectWith: ".connectedSortable"});
       $("#staging-area ul").droppable({
         drop: function(event, ui) {
+          imgUrls = []
+          $("#staging-area ul img").each(function() {
+            imgUrls.push($(this).attr("src"));
+          });
+          socket.emit("dropped", {"urls": imgUrls});
+        }
+      });
+      $("#staging-area ul").sortable({
+        out: function(event, ui) {
           imgUrls = []
           $("#staging-area ul img").each(function() {
             imgUrls.push($(this).attr("src"));
