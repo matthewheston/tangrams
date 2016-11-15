@@ -11,3 +11,29 @@ div {
   border: 2px solid black;
   vertical-align: top;
 }
+
+#chat-container {
+  text-align: center;
+}
+
+#chat-box {
+  width: 90%;
+  height: 60%;
+  border: 1px solid black;
+  text-align: left;
+}
+
+#chats {
+  overflow-y: auto;
+}
+
+#m {
+  width: 70%;
+}
+
+ol {
+  list-style-type: none;
+  margin-left: .5em;
+  margin-right: .5em;
+  padding: 0;
+}

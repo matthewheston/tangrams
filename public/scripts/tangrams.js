@@ -23,6 +23,15 @@ $(function() {
   socket.on("success", function() {
     $("#staging-area").css("background-color", "#98fb98");
   });
+  $('form').submit(function(){
+    socket.emit('chat-message', {'id': playerType, 'chat': $('#m').val()});
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat-message', function(msg){
+    $("#chat-box").scrollTop(document.getElementById("chat-box").scrollHeight);
+    $('#messages').append($('<li>').text(msg));
+  });
   
 
   // hide different areas based on player type in query string

@@ -49,6 +49,9 @@ io.on('connection', function(socket){
     images.push(data["imageName"]);
     console.log(images);
   });
+  socket.on('chat-message', function(msg){
+    io.emit('chat-message', msg["chat"]);
+  });
 });
 
 http.listen(4000, function(){
