@@ -29,6 +29,10 @@ function arraysEqual(a,b) {
 images = []
 
 app.get('/', function(req, res){
+  res.sendFile(__dirname + '/welcome.html');
+});
+
+app.get('/tangrams', function(req, res){
   res.sendFile(__dirname + '/tangrams.html');
 });
 
