@@ -40,12 +40,15 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/static/images', serveIndex('public/images'))
 
 io.on('connection', function(socket){
+  socket.on("room", function(data) {
+    socket.join(data);
+  });
   socket.on("dropped", function(data) {
-    io.emit("stage-update", data["urls"])
+    io.sockets.in(data["room"]).emit("stage-update", data["urls"])
     if (data["urls"].length == 4) {
       console.log(data["urls"]);
       if (arraysEqual(images, data["urls"])) {
-        io.emit("success");
+        io.sockets.in(data["room"]).emit("success");
       }
     }
   });
@@ -54,7 +57,7 @@ io.on('connection', function(socket){
     console.log(images);
   });
   socket.on('chat-message', function(msg){
-    io.emit('chat-message', msg["chat"]);
+    io.sockets.in(msg["room"]).emit('chat-message', msg["chat"]);
   });
 });
 

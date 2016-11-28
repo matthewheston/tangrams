@@ -12,6 +12,8 @@ $(function() {
 
   // web socket updates
   var socket = io();
+  var room = getParameterByName("room");
+  socket.emit("room", room);
   socket.on("stage-update", function(urls) {
     if (playerType == "h") {
       $("#staging-area ul").empty();
@@ -24,7 +26,7 @@ $(function() {
     $("#staging-area").css("background-color", "#98fb98");
   });
   $('form').submit(function(){
-    socket.emit('chat-message', {'id': playerType, 'chat': $('#m').val()});
+    socket.emit('chat-message', {'id': playerType, 'chat': $('#m').val(), 'room': room});
     $('#m').val('');
     return false;
   });
@@ -61,7 +63,7 @@ $(function() {
         if (playerType == "h") {
           if ($.inArray(idx, randomList) != -1) {
             $("#puzzle-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
-            socket.emit("image-select", {"imageName": image});
+            socket.emit("image-select", {"imageName": image, "room": room});
           }
         }
       });
@@ -72,7 +74,7 @@ $(function() {
           $("#staging-area ul img").each(function() {
             imgUrls.push($(this).attr("src"));
           });
-          socket.emit("dropped", {"urls": imgUrls});
+          socket.emit("dropped", {"urls": imgUrls, "room": room});
         }
       });
       $("#staging-area ul").sortable({
@@ -81,7 +83,7 @@ $(function() {
           $("#staging-area ul img").each(function() {
             imgUrls.push($(this).attr("src"));
           });
-          socket.emit("dropped", {"urls": imgUrls});
+          socket.emit("dropped", {"urls": imgUrls, "room": room});
         }
       });
     }
