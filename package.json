@@ -4,6 +4,7 @@
   "description": "MSC exercise",
   "dependencies": {
     "socket.io": "^1.4.5",
-    "serve-index": "1.8.x"
+    "serve-index": "1.8.x",
+    "express": "4.x.x"
   }
 }
