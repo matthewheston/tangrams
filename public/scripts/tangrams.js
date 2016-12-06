@@ -9,6 +9,7 @@ function getParameterByName(name, url) {
 }
 $(function() {
   var playerType = getParameterByName("type");
+  var round = getParameterByName("r");
 
   // web socket updates
   var socket = io();
@@ -55,9 +56,9 @@ $(function() {
 
   // get images to show
   $.ajax({
-    url: "/static/images",
+    url: "/static/images/" + round,
     success: function(data) {
-      $(data).find("a:contains(.jpg)").each(function(idx) {
+      $(data).find("a:contains(.png)").each(function(idx) {
         var image = $(this).attr("href");
         $("#all-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
         if (playerType == "h") {
