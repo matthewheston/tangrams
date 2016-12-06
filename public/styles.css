@@ -24,6 +24,10 @@ div {
   overflow: scroll;
 }
 
+#staging-area {
+  height: 70%;
+}
+
 #chats {
   overflow-y: auto;
 }
