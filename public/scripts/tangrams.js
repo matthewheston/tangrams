@@ -25,6 +25,12 @@ $(function() {
   });
   socket.on("success", function() {
     $("#staging-area").css("background-color", "#98fb98");
+    if (parseInt(round) < 3 && !$("#redirect").length) {
+      $("body").prepend("<p id=\"redirect\">Redirecting to the next round in 5 seconds...</p>");
+      setTimeout(function() {
+        window.location = window.location.href.replace(/r=\d/,"r="+String(parseInt(round) + 1));
+      }, 5000);
+    }
   });
   $('form').submit(function(){
     socket.emit('chat-message', {'id': playerType, 'chat': $('#m').val(), 'room': room});

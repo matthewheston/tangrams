@@ -56,6 +56,9 @@ io.on('connection', function(socket){
     if (!images[data["room"]]) {
       images[data["room"]] = [];
     }
+    if (images[data["room"]].length == 4) {
+      images[data["room"]] = [];
+    }
     images[data["room"]].push(data["imageName"]);
   });
   socket.on('chat-message', function(msg){
