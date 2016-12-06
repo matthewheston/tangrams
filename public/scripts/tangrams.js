@@ -54,7 +54,7 @@ $(function() {
   // select random pieces to be the ones to display to helper
   var randomList = [];
   while (randomList.length < 4) {
-    randomNum = Math.floor(Math.random() * 10);
+    randomNum = Math.floor(Math.random() * 18);
     if ($.inArray(randomNum, randomList) == -1) {
       randomList.push(randomNum);
     }
