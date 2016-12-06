@@ -26,7 +26,7 @@ function arraysEqual(a,b) {
     }
 }
 
-images = []
+images = {}
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/welcome.html');
@@ -46,15 +46,17 @@ io.on('connection', function(socket){
   socket.on("dropped", function(data) {
     io.sockets.in(data["room"]).emit("stage-update", data["urls"])
     if (data["urls"].length == 4) {
-      console.log(data["urls"]);
-      if (arraysEqual(images, data["urls"])) {
+      if (arraysEqual(images[data["room"]], data["urls"])) {
         io.sockets.in(data["room"]).emit("success");
+        console.log("success!");
       }
     }
   });
   socket.on("image-select", function(data) {
-    images.push(data["imageName"]);
-    console.log(images);
+    if (!images[data["room"]]) {
+      images[data["room"]] = [];
+    }
+    images[data["room"]].push(data["imageName"]);
   });
   socket.on('chat-message', function(msg){
     io.sockets.in(msg["room"]).emit('chat-message', msg["chat"]);
