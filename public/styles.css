@@ -7,7 +7,7 @@ div {
   display: inline-block;
   width: 30%;
   margin: 1em;
-  height: 70%;
+  min-height: 70%;
   border: 2px solid black;
   vertical-align: top;
 }
@@ -18,9 +18,10 @@ div {
 
 #chat-box {
   width: 90%;
-  height: 60%;
+  height: 300px;
   border: 1px solid black;
   text-align: left;
+  overflow: scroll;
 }
 
 #chats {
