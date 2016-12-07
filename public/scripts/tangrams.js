@@ -13,6 +13,34 @@ $(function() {
   var sharedView = parseInt(getParameterByName("s"));
   var time = getParameterByName("t");
 
+  if (playerType == "w") {
+    $("body").prepend("<p></p>");
+    $("p").append("You've been assigned the role of <em>worker</em>. ");
+    $("p").append("Your partner will describe a series of shapes to you. ");
+    $("p").append("Your goal is to drag the correct shapes from the box on the left to the box in the center. ");
+    if (!sharedView) {
+      $("p").append("Your partner cannot see all of the shapes you see.");
+    }
+    if (sharedView) {
+      $("p").append("Your partner cannot see all of the shapes you see, but they can see the shapes after you drop them in the center box.");
+    }
+    $("p").append("Chat with your partner using the chat box on the right. ");
+    $("p").append("Once you correctly choose the shapes, you'll be automatically redirected to the next challenge.");
+  }
+  if (playerType == "h") {
+    $("body").prepend("<p></p>");
+    $("p").append("You've been assigned the role of <em>helper</em>. ");
+    $("p").append("Your job is to describe the shapes in the box on the left to your partner. ");
+    if (!sharedView) {
+      $("p").append("You won't be able to see the shapes your partner selects.");
+    }
+    if (sharedView) {
+      $("p").append("As your partner selects shapes, you'll be able to see them in the center box.");
+    }
+    $("p").append("Chat with your partner using the chat box on the right. ");
+    $("p").append("Once your partner correctly choose the shapes, you'll be automatically redirected to the next challenge.");
+  }
+
   // web socket updates
   var socket = io();
   var room = getParameterByName("room");
