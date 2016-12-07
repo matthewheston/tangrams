@@ -13,10 +13,19 @@
 <body>
   <p>
   Welcome to the tangrams exercise. If your partner already has a room open, they should send you a link to meet them.
-  To generate a new room, click on the button below.
+  To generate a new session, click on the button below.
   </p>
 
-  <a id="create-room">Create new room</a>
+  <label for="sessionName">
+    If you're creating a new session, input a word here to act as the name of your session.
+    Tell your partner the session name so they can join you.
+    <br /><br />
+    If your partner already created a new session, get the session name from them and input
+    it here.
+  <input type="text" id="sessionName"></input>
+  <a id="create-room">Create new session</a>
+  <a id="join-room">Join existing session</a>
   <script type="text/javascript" src="/static/scripts/jquery-3.1.1.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="/static/scripts/welcome.js"></script>
 </body>

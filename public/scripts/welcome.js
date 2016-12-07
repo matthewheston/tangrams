@@ -12,6 +12,7 @@ function generateUUID(){
 }
 
 $(function () {
+  var socket = io();
   $("#create-room").click(function () {
     var uuid = generateUUID();
     var roles = ["w", "h"]
@@ -20,7 +21,17 @@ $(function () {
     var partnerRole = myRole == "w" ? "h" : "w";
     var myLink = "/tangrams/?type=" + myRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
     var partnerLink = "/tangrams/?type=" + partnerRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
-    $("body").append('<p>Send this link to your partner: ' + window.location.host +  partnerLink + '</p>');
-    $("body").append('<p>Then <a href="' + myLink +'">click here</a> to enter the room!</p>');
+    socket.emit("room-setup", {"keyword": $("#sessionName").val().toLowerCase(), "url": partnerLink});
+    $("body").append('<p>Tell your partner the name of your session</p>');
+    $("body").append('<p>Then <a href="' + myLink +'">click here</a> to begin.</p>');
+  });
+  $("#join-room").click(function() {
+    socket.emit("get-room", $("#sessionName").val().toLowerCase());
+    $("body").append("<p>Please wait...</p>");
+  });
+  socket.on("send-to-room", function(data) {
+    console.log(data);
+    if (data[0] == $("#sessionName").val().toLowerCase())
+      window.location = data[1];
   });
 });

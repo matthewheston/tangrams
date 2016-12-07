@@ -26,7 +26,8 @@ function arraysEqual(a,b) {
     }
 }
 
-images = {}
+images = {};
+keysToUrls = {};
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/welcome.html');
@@ -40,6 +41,12 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/static/images', serveIndex('public/images'))
 
 io.on('connection', function(socket){
+  socket.on("room-setup", function(data) {
+    keysToUrls[data["keyword"]] = data["url"];
+  });
+  socket.on("get-room", function(roomName) {
+    socket.emit("send-to-room", [roomName, keysToUrls[roomName]]);
+  });
   socket.on("room", function(data) {
     socket.join(data);
   });
