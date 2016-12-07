@@ -10,6 +10,8 @@ function getParameterByName(name, url) {
 $(function() {
   var playerType = getParameterByName("type");
   var round = getParameterByName("r");
+  var sharedView = parseInt(getParameterByName("s"));
+  var time = getParameterByName("t");
 
   // web socket updates
   var socket = io();
@@ -25,6 +27,17 @@ $(function() {
   });
   socket.on("success", function() {
     $("#staging-area").css("background-color", "#98fb98");
+    if (round == "3") {
+       if (time == "0") {
+        $("body").prepend("<p id=\"redirect\">Redirecting to the next round in 5 seconds...</p>");
+        setTimeout(function() {
+          window.location = window.location.href.replace(/r=3&t=0/,"r=1&t=1").replace(/s=\d/, "s=" + (sharedView ? "0" : "1"));
+        }, 5000);
+       }
+      if (time == "1") {
+        $("body").prepend("OKAY U R DONE");
+      }
+    }
     if (parseInt(round) < 3 && !$("#redirect").length) {
       $("body").prepend("<p id=\"redirect\">Redirecting to the next round in 5 seconds...</p>");
       setTimeout(function() {
@@ -49,6 +62,9 @@ $(function() {
   }
   if (playerType == "h") {
     $("#all-images").hide();
+  }
+  if (playerType == "h" && !sharedView) {
+    $("#staging-area").hide();
   }
 
   // select random pieces to be the ones to display to helper

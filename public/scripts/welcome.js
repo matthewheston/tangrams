@@ -16,9 +16,10 @@ $(function () {
     var uuid = generateUUID();
     var roles = ["w", "h"]
     var myRole = roles[Math.floor(Math.random() * 2)];
+    var sharedView = Math.floor(Math.random() *2);
     var partnerRole = myRole == "w" ? "h" : "w";
-    var myLink = "/tangrams/?type=" + myRole + "&room=" + uuid + "&r=1";
-    var partnerLink = "/tangrams/?type=" + partnerRole + "&room=" + uuid + "&r=1";
+    var myLink = "/tangrams/?type=" + myRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
+    var partnerLink = "/tangrams/?type=" + partnerRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
     $("body").append('<p>Send this link to your partner: ' + window.location.host +  partnerLink + '</p>');
     $("body").append('<p>Then <a href="' + myLink +'">click here</a> to enter the room!</p>');
   });
