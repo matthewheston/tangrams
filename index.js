@@ -50,6 +50,10 @@ io.on('connection', function(socket){
         io.sockets.in(data["room"]).emit("success");
         console.log("success!");
       }
+      else {
+        io.sockets.in(data["room"]).emit("failure");
+          console.log("failure!");
+      }
     }
   });
   socket.on("image-select", function(data) {
