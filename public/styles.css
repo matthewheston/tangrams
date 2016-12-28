@@ -47,7 +47,6 @@ ol {
 }
 
 #create-room, #join-room {
-  display: block;
   font-size: 1em;
   text-decoration: underline;
   

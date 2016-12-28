@@ -11,6 +11,19 @@ function generateUUID(){
     return uuid;
 }
 
+// First, checks if it isn't implemented yet.
+if (!String.prototype.format) {
+  String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+      return typeof args[number] != 'undefined'
+        ? args[number]
+        : match
+      ;
+    });
+  };
+}
+
 $(function () {
   var socket = io();
   $("#create-room").click(function () {
@@ -22,16 +35,20 @@ $(function () {
     var myLink = "/tangrams/?type=" + myRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
     var partnerLink = "/tangrams/?type=" + partnerRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
     socket.emit("room-setup", {"keyword": $("#sessionName").val().toLowerCase(), "url": partnerLink});
-    $("body").append('<p>Tell your partner the name of your session</p>');
-    $("body").append('<p>Then <a href="' + myLink +'">click here</a> to begin.</p>');
+    $("body").append('<p><a href="' + myLink +'">Click here</a> to begin.</p>');
   });
   $("#join-room").click(function() {
-    socket.emit("get-room", $("#sessionName").val().toLowerCase());
-    $("body").append("<p>Please wait...</p>");
+    socket.emit("get-rooms");
   });
   socket.on("send-to-room", function(data) {
     console.log(data);
     if (data[0] == $("#sessionName").val().toLowerCase())
       window.location = data[1];
+  });
+  socket.on("room-list", function(roomList) {
+    $.each(roomList, function(roomName) {
+      $("body").append('<ul id="rooms"></li>');
+      $("#rooms").append('<li><a href="{0}">{1}</a></li>'.format(roomList[roomName], roomName));
+    });
   });
 });

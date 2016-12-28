@@ -37,6 +37,14 @@ app.get('/tangrams', function(req, res){
   res.sendFile(__dirname + '/tangrams.html');
 });
 
+app.get('/create', function(req, res){
+  res.sendFile(__dirname + '/create_new.html');
+});
+
+app.get('/join', function(req, res){
+  res.sendFile(__dirname + '/join.html');
+});
+
 app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use('/static/images', serveIndex('public/images'))
 
@@ -62,6 +70,9 @@ io.on('connection', function(socket){
           console.log("failure!");
       }
     }
+  });
+  socket.on("get-rooms", function(data) {
+    socket.emit("room-list", keysToUrls);
   });
   socket.on("image-select", function(data) {
     if (!images[data["room"]]) {

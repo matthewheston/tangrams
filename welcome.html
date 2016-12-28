@@ -12,17 +12,12 @@
 
 <body>
   <p>
-  Welcome to the tangrams exercise. If your partner already started a session, ask them for
-  the session name to input below and click "Join existing session". To start a new session,
-  enter a name for it and press the "Create new session" button.
+  Welcome to the tangrams exercise.
   </p>
-
-  <label for="sessionName">
-    Session Name (required):
-  <input type="text" id="sessionName"></input>
-  <a id="create-room">Create new session</a>
-  <a id="join-room">Join existing session</a>
-  <script type="text/javascript" src="/static/scripts/jquery-3.1.1.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="/static/scripts/welcome.js"></script>
+  <p>
+  Starting a new session? <a href="/create/">Click here.</a>
+  </p>
+  <p>
+  Joining a partner who already started a session? <a href="/join/">Click here.</a>
+  </p>
 </body>
