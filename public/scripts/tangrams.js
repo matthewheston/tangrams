@@ -26,6 +26,7 @@ $(function() {
     }
     $("p").append("Chat with your partner using the chat box on the right. ");
     $("p").append("Once you correctly choose the shapes, you'll be automatically redirected to the next challenge.");
+    $("body").prepend('<span class="playerType">Worker</span>');
   }
   if (playerType == "h") {
     $("body").prepend("<p></p>");
@@ -39,6 +40,7 @@ $(function() {
     }
     $("p").append("Chat with your partner using the chat box on the right. ");
     $("p").append("Once your partner correctly choose the shapes, you'll be automatically redirected to the next challenge.");
+    $("body").prepend('<span class="playerType">Helper</span>');
   }
 
   // web socket updates

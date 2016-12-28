@@ -49,4 +49,9 @@ ol {
 #create-room, #join-room {
   font-size: 1em;
   text-decoration: underline;
+}
+
+.playerType {
+  font-size: 150%;
+}
   
