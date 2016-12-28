@@ -12,8 +12,10 @@ $(function() {
   var round = getParameterByName("r");
   var sharedView = parseInt(getParameterByName("s"));
   var time = getParameterByName("t");
+  chatType = "";
 
   if (playerType == "w") {
+    chatType = "worker: "
     $("body").prepend("<p></p>");
     $("p").append("You've been assigned the role of <em>worker</em>. ");
     $("p").append("Your partner will describe a series of shapes to you. ");
@@ -29,6 +31,7 @@ $(function() {
     $("body").prepend('<span class="playerType">Worker</span>');
   }
   if (playerType == "h") {
+    chatType = "helper: "
     $("body").prepend("<p></p>");
     $("p").append("You've been assigned the role of <em>helper</em>. ");
     $("p").append("Your job is to describe the shapes in the box on the left to your partner. ");
@@ -79,7 +82,7 @@ $(function() {
     $("#staging-area").css("background-color", "#ff0000");
   });
   $('form').submit(function(){
-    socket.emit('chat-message', {'id': playerType, 'chat': $('#m').val(), 'room': room});
+    socket.emit('chat-message', {'id': playerType, 'chat': chatType + $('#m').val(), 'room': room});
     $('#m').val('');
     return false;
   });
