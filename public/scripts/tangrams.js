@@ -72,7 +72,8 @@ $(function() {
         }, 5000);
        }
       if (time == "1") {
-        $("body").prepend("OKAY U R DONE");
+        $("body").empty();
+        $("body").append('<span class="welcome">You have completed the exercise.</span>');
       }
     }
     if (parseInt(round) < 2 && !$("#redirect").length) {
