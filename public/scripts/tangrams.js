@@ -12,6 +12,7 @@ $(function() {
   var round = getParameterByName("r");
   var sharedView = parseInt(getParameterByName("s"));
   var time = getParameterByName("t");
+  var xOfX = 1*parseInt(time) + parseInt(round);
   chatType = "";
 
   if (playerType == "w") {
@@ -21,10 +22,10 @@ $(function() {
     $("p").append("Your partner will describe a series of shapes to you. ");
     $("p").append("Your goal is to drag the correct shapes from the box on the left to the box in the center. ");
     if (!sharedView) {
-      $("p").append("Your partner cannot see all of the shapes you see.");
+      $("p").append("Your partner cannot see all of the shapes you see. ");
     }
     if (sharedView) {
-      $("p").append("Your partner cannot see all of the shapes you see, but they can see the shapes after you drop them in the center box.");
+      $("p").append("Your partner cannot see all of the shapes you see, but they can see the shapes after you drop them in the center box. ");
     }
     $("p").append("Chat with your partner using the chat box on the left. ");
     $("p").append("Once you correctly choose the shapes, you'll be automatically redirected to the next challenge.");
@@ -45,6 +46,9 @@ $(function() {
     $("p").append("Once your partner correctly choose the shapes, you'll be automatically redirected to the next challenge.");
     $("body").prepend('<span class="playerType">Helper</span>');
   }
+
+  $("<p>Round " + xOfX + " of 4</p>").insertAfter("p");
+  
 
   // web socket updates
   var socket = io();
