@@ -35,7 +35,7 @@ $(function () {
     var myLink = "/tangrams/?type=" + myRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
     var partnerLink = "/tangrams/?type=" + partnerRole + "&room=" + uuid + "&s=" + sharedView + "&r=1&t=0";
     socket.emit("room-setup", {"keyword": $("#sessionName").val().toLowerCase(), "url": partnerLink});
-    $("body").append('<p><a href="' + myLink +'">Click here</a> to begin.</p>');
+    $(".welcome").append('<p><a href="' + myLink +'">Click here</a> to begin.</p>');
   });
   $("#join-room").click(function() {
     socket.emit("get-rooms");
@@ -47,7 +47,7 @@ $(function () {
   });
   socket.on("room-list", function(roomList) {
     $.each(roomList, function(roomName) {
-      $("body").append('<ul id="rooms"></li>');
+      $(".welcome").append('<ul id="rooms"></li>');
       $("#rooms").append('<li><a href="{0}">{1}</a></li>'.format(roomList[roomName], roomName));
     });
   });

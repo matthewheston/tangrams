@@ -11,12 +11,14 @@
 </head>
 
 <body>
-  <p>Enter your name and click "Create new session."</p>
+  <span class="welcome">
+    <p>Enter your name and click "Create new session."</p>
 
-  <label for="sessionName">
-    Session Name (required):
-  <input type="text" id="sessionName"></input>
-  <a id="create-room">Create new session</a>
+    <label for="sessionName">
+      Session Name (required):
+      <input type="text" id="sessionName"></input>
+      <a id="create-room">Create new session</a>
+    </span>
 
   <script type="text/javascript" src="/static/scripts/jquery-3.1.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>

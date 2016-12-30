@@ -26,7 +26,7 @@ $(function() {
     if (sharedView) {
       $("p").append("Your partner cannot see all of the shapes you see, but they can see the shapes after you drop them in the center box.");
     }
-    $("p").append("Chat with your partner using the chat box on the right. ");
+    $("p").append("Chat with your partner using the chat box on the left. ");
     $("p").append("Once you correctly choose the shapes, you'll be automatically redirected to the next challenge.");
     $("body").prepend('<span class="playerType">Worker</span>');
   }
@@ -36,10 +36,10 @@ $(function() {
     $("p").append("You've been assigned the role of <em>helper</em>. ");
     $("p").append("Your job is to describe the shapes in the box on the left to your partner. ");
     if (!sharedView) {
-      $("p").append("You won't be able to see the shapes your partner selects.");
+      $("p").append("You won't be able to see the shapes your partner selects. ");
     }
     if (sharedView) {
-      $("p").append("As your partner selects shapes, you'll be able to see them in the center box.");
+      $("p").append("As your partner selects shapes, you'll be able to see them in the center box. ");
     }
     $("p").append("Chat with your partner using the chat box on the right. ");
     $("p").append("Once your partner correctly choose the shapes, you'll be automatically redirected to the next challenge.");
@@ -54,7 +54,7 @@ $(function() {
     if (playerType == "h") {
       $("#staging-area ul").empty();
       $.each(urls, function(idx, value) {
-        $("#staging-area ul").append($("<img>",{src:value,width:"100px",height:"100px",class:"draggable"}));
+        $("#staging-area ul").append($("<img>",{src:value,width:"75px",height:"75px",class:"draggable"}));
       });
     }
   });
@@ -118,10 +118,10 @@ $(function() {
     success: function(data) {
       $(data).find("a:contains(.png)").each(function(idx) {
         var image = $(this).attr("href");
-        $("#all-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
+        $("#all-images ul").append($("li")).append($('<img>',{src:image,width:"75px",height:"75px",class:"draggable"}));
         if (playerType == "h") {
           if ($.inArray(idx, randomList) != -1) {
-            $("#puzzle-images ul").append($("li")).append($('<img>',{src:image,width:"100px",height:"100px",class:"draggable"}));
+            $("#puzzle-images ul").append($("li")).append($('<img>',{src:image,width:"75px",height:"75px",class:"draggable"}));
             socket.emit("image-select", {"imageName": image, "room": room});
           }
         }
