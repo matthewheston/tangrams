@@ -28,6 +28,7 @@ function arraysEqual(a,b) {
 
 images = {};
 keysToUrls = {};
+keysToUsers = {};
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/welcome.html');
@@ -56,6 +57,15 @@ io.on('connection', function(socket){
     socket.emit("send-to-room", [roomName, keysToUrls[roomName]]);
   });
   socket.on("room", function(data) {
+    if (data in keysToUsers) {
+      keysToUsers[data] += 1;
+      if (keysToUsers[data] == 2) {
+        console.log("ROUND BEGIN,"+data+","+new Date().toISOString());
+        delete keysToUrls[data];
+      }
+    }  else {
+      keysToUsers[data] = 1;
+    }
     socket.join(data);
   });
   socket.on("dropped", function(data) {
@@ -63,11 +73,14 @@ io.on('connection', function(socket){
     if (data["urls"].length == 4) {
       if (arraysEqual(images[data["room"]], data["urls"])) {
         io.sockets.in(data["room"]).emit("success");
-        console.log("success!");
+        console.log("ROUND END,"+data["room"]+","+new Date().toISOString());
+        setTimeout(function () {
+          console.log("ROUND BEGIN,"+data["room"]+","+new Date().toISOString());
+        }, 5000);
       }
       else {
         io.sockets.in(data["room"]).emit("failure");
-          console.log("failure!");
+          console.log("FAILURE,"+data["room"]+","+new Date().toISOString());
       }
     }
   });

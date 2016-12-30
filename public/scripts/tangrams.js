@@ -84,7 +84,7 @@ $(function() {
     }
   });
   socket.on("failure", function() {
-    $("#staging-area").css("background-color", "#ff0000");
+    // $("#staging-area").css("background-color", "#ff0000");
   });
   $('form').submit(function(){
     socket.emit('chat-message', {'id': playerType, 'chat': chatType + $('#m').val(), 'room': room});
