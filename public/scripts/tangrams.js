@@ -60,18 +60,18 @@ $(function() {
   });
   socket.on("success", function() {
     $("#staging-area").css("background-color", "#98fb98");
-    if (round == "3") {
+    if (round == "2") {
        if (time == "0") {
         $("body").prepend("<p id=\"redirect\">Redirecting to the next round in 5 seconds...</p>");
         setTimeout(function() {
-          window.location = window.location.href.replace(/r=3&t=0/,"r=1&t=1").replace(/s=\d/, "s=" + (sharedView ? "0" : "1"));
+          window.location = window.location.href.replace(/r=2&t=0/,"r=1&t=1").replace(/s=\d/, "s=" + (sharedView ? "0" : "1"));
         }, 5000);
        }
       if (time == "1") {
         $("body").prepend("OKAY U R DONE");
       }
     }
-    if (parseInt(round) < 3 && !$("#redirect").length) {
+    if (parseInt(round) < 2 && !$("#redirect").length) {
       $("body").prepend("<p id=\"redirect\">Redirecting to the next round in 5 seconds...</p>");
       setTimeout(function() {
         window.location = window.location.href.replace(/r=\d/,"r="+String(parseInt(round) + 1));
