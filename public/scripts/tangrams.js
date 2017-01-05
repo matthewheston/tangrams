@@ -17,33 +17,37 @@ $(function() {
 
   if (playerType == "w") {
     chatType = "worker: "
-    $("body").prepend("<p></p>");
+    $("body").prepend('<p id="instructions"></p>');
     $("p").append("You've been assigned the role of <em>worker</em>. ");
-    $("p").append("Your partner will describe a series of shapes to you. ");
-    $("p").append("Your goal is to drag the correct shapes from the box on the left to the box in the center. ");
+    $("p").append("Below, you see a series of shapes. ");
+    $("p").append("Your partner, the <em>helper</em> can see 4 of those shapes. ");
+    $("p").append("They'll describe the 4 shapes that they can see to you using the chat box on the left side of the screen. ");
+    $("p").append("Your goal is to correctly select the 4 shapes your partner sees and put them in the same order your partner sees them. ");
+    $("p").append("To select a shape, click on it with your mouse, and drag it to the empty box next to it. Let go of your mouse button to drop the shape in the box. ");
     if (!sharedView) {
-      $("p").append("Your partner cannot see all of the shapes you see. ");
+      $("p").append("In this round, your partner can't see any of the shapes that you select. ");
     }
     if (sharedView) {
-      $("p").append("Your partner cannot see all of the shapes you see, but they can see the shapes after you drop them in the center box. ");
+      $("p").append("In this round, your partner can see the shapes you've select after you drop them in the box. ");
     }
-    $("p").append("Chat with your partner using the chat box on the left. ");
-    $("p").append("Once you correctly choose the shapes, you'll be automatically redirected to the next challenge.");
+    $("p").append("Once you correctly choose the shapes and put them in the right order , you'll be automatically redirected to the next challenge. ");
     $("body").prepend('<span class="playerType">Worker</span>');
   }
   if (playerType == "h") {
     chatType = "helper: "
-    $("body").prepend("<p></p>");
+    $('body').prepend('<p id="instructions"></p>');
     $("p").append("You've been assigned the role of <em>helper</em>. ");
-    $("p").append("Your job is to describe the shapes in the box on the left to your partner. ");
+    $("p").append("Below, you see a series of shapes. ");
+    $("p").append("Your partner, the <em>worker</em> can see all of the shapes you see, but also many more. ");
+    $("p").append("Your goal is to get your partner to correctly select the 4 shapes that you can see out of the many shapes that they see. ");
+    $("p").append("To do so, describe the shapes you see using the chat box on the left. ");
     if (!sharedView) {
-      $("p").append("You won't be able to see the shapes your partner selects. ");
+      $("p").append("In this round, you won't be able to see any of the shapes your partner selects. ");
     }
     if (sharedView) {
-      $("p").append("As your partner selects shapes, you'll be able to see them in the center box. ");
+      $("p").append("In this round, you'll be able to see the shapes your partner selects after they select each one. ");
     }
-    $("p").append("Chat with your partner using the chat box on the right. ");
-    $("p").append("Once your partner correctly choose the shapes, you'll be automatically redirected to the next challenge.");
+    $("p").append("Once your partner correctly choose the shapes and puts them in the correct order, you'll be automatically redirected to the next challenge.");
     $("body").prepend('<span class="playerType">Helper</span>');
   }
 
