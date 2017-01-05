@@ -12,7 +12,7 @@ $(function() {
   var round = getParameterByName("r");
   var sharedView = parseInt(getParameterByName("s"));
   var time = getParameterByName("t");
-  var xOfX = 1*parseInt(time) + parseInt(round);
+  var xOfX = 2*parseInt(time) + parseInt(round);
   chatType = "";
 
   if (playerType == "w") {
