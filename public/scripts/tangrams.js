@@ -121,6 +121,7 @@ $(function() {
     }
   }
 
+
   // get images to show
   $.ajax({
     url: "/static/images/" + round,
@@ -136,14 +137,13 @@ $(function() {
         }
       });
       $(".connectedSortable").sortable({connectWith: ".connectedSortable"});
-      $("#staging-area ul").droppable({
-        drop: function(event, ui) {
+      $("#staging-area ul").droppable();
+      $("#staging-area ul").on('drop',function(event,ui){
           imgUrls = []
           $("#staging-area ul img").each(function() {
             imgUrls.push($(this).attr("src"));
           });
           socket.emit("dropped", {"urls": imgUrls, "room": room});
-        }
       });
       $("#staging-area ul").sortable({
         out: function(event, ui) {
@@ -153,6 +153,10 @@ $(function() {
           });
           socket.emit("dropped", {"urls": imgUrls, "room": room});
         }
+      });
+      $("#all-images img").dblclick(function () {
+        $(this).hide().appendTo($("#staging-area ul")).show("slow");
+        $("#staging-area ul").trigger('drop');
       });
     }
   });
